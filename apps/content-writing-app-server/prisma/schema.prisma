@@ -1,0 +1,51 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserRequest {
+  contentLength Int?
+  contentTone   String?
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  requestType   String?
+  updatedAt     DateTime @updatedAt
+  youtubeLink   String?
+}
+
+model GeneratedContent {
+  contentText String?
+  createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  seoScore    Float?
+  updatedAt   DateTime @updatedAt
+}
+
+model SeoSettings {
+  createdAt       DateTime              @default(now())
+  id              String                @id @default(cuid())
+  keyword         String?
+  metaDescription String?
+  tags            EnumSeoSettingsTags[]
+  updatedAt       DateTime              @updatedAt
+}
+
+model ContentTask {
+  createdAt DateTime               @default(now())
+  id        String                 @id @default(cuid())
+  status    EnumContentTaskStatus?
+  taskId    Int?
+  updatedAt DateTime               @updatedAt
+}
+
+enum EnumSeoSettingsTags {
+  Option1
+}
+
+enum EnumContentTaskStatus {
+  Option1
+}
